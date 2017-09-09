@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body id="target">
+  <h1>JavaScript 함수 - 숙제1</h1>
+  <main id="wrapper">
+  <article id="box1">
+    <h3>과제내용 :
+    </h3>
+              <ul>
+                <li>1. input태그에 text타입으로 숫자 입력할 공간 3개 만들기</li>
+                <li>2. 그 세 곳에 입력된 값의 총합을 구하도록 함수 작성</li>
+                <li>3. 그럼 끝인가?</li>
+              </ul>
+  </article>
+  <article id="box2">
+    <h3>
+      수행내용 :
+    </h3>
+    <ul id="content">
+      <li class="wrap">
+        <label for="first">A. 당신의 <strong>나이</strong>에서 </label>
+        <input type="text" id="first" name="HowOld" placeholder="-20을 하면 나오는 수" ><span>세 입니까?,</span>
+      </li>
+      <li class="wrap">
+        <label for="second">B. <strong>죽창</strong>이란 단어는 </label>
+        <input type="text" id="second" name="HowOld" placeholder="아래그림에서 몇번 나왔는지" ><span>개 일지도,</span>
+      </li>
+      <li class="wrap">
+        <label for="third">C. 눈에 보이는 <strong>숫자</strong>는</label>
+        <input type="text" id="third" name="HowOld" placeholder="나는 알수읎다읎다" ><span>이군요.</span>
+      </li>
+    </ul>
+  </article>
+      <article class="box">
+        <h3>입력된 숫자의 총합은?</h3>
+        <ul>
+          <input type="button" value="TOTAL" id="bnt">
+          <span>총합은</span><input type="text" value="" id="answer" placeholder="어차피 의미없드아아"readonly="readonly" size="15"/><span>개</span>
+        </ul>
+      </article>
+      <article class="box">
+        <img id="picture" src="images/jookchang.PNG" alt="">
+      </article>
+
+</main>
+<script type="text/javascript" src="script3.js"></script>
+</body>
+
+</html>

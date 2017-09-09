@@ -1,0 +1,91 @@
+* {margin:0;
+   padding:0;
+   list-style-type: none;
+   line-height: 2.5em;
+  }
+  body{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content:center;
+  }
+  h1{
+    display: flex;
+    flex-basis: 20vh;
+    flex-grow:2;
+    border-bottom: 1px solid grey;
+    justify-content: center;
+    align-items: center;
+  }
+  #wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    flex-grow: 8;
+    align-items: center;
+    justify-content: center;
+    padding:10px 0;
+    background-color:rgba(71, 71, 71, 0.3);
+    align-content: flex-start;
+  }
+  #box1, #box2, .box {
+    direction: row;
+    flex-basis:800px;
+    flex-shrink: 1;
+    flex-grow:0;
+    flex-wrap: wrap;
+    display: flex;
+    padding:20px;
+    border:1px solid white;
+    margin:10px;
+  }
+
+  h3{
+    flex-basis: 100px;
+    flex-shrink: 1;
+    flex-grow:0;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-self:flex-end;
+    flex-basis:550px;
+    justify-content: center;
+    flex-grow:1;
+    flex-shrink: 1;
+  }
+  li{
+    flex-basis: 450px;
+  }
+  .box ul{
+    align-self: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  .box h3{
+    flex-wrap:wrap;
+    flex-basis: 200px;
+  }
+   #bnt{
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 5%;
+    flex-basis:200px;
+    justify-content: center;
+  }
+  .box #bnt:hover{
+    background-color: rgba(0, 0, 0, 1);
+    color:white;
+  }
+  .box #bnt:active{
+    color:rgba(19, 236, 0, 0.72);
+  }
+
+  input#answer{
+    color:red;
+  }
+  /* flex로 위치 잡기 */
+  /*장난*/
+ article:last-of-type{
+   justify-content: center;
+ }
