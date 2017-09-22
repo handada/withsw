@@ -1,3 +1,8 @@
-p.redBorder{
-  box-shadow: 0px 0px 8px 2px red;
+p.view {
+  display: block;
+  color:red;
+}
+p{
+  display: block;
+  color:white;
 }
