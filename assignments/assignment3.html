@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .shadow {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <select name="" id="slct">
+        <option value="substr">substr</option>
+        <option value="upper">upper</option>
+        <option value="lower">lower</option>
+        <option value="indexOf">indexOf</option>
+        <option value="replace">replace</option>
+        <option value="split">split</option>
+    </select>
+    <button id="add">추가</button>
+
+    <div id="list"></div>
+
+    <div class="shadow" id="substr">
+        <button class="remove">삭제</button>
+        <input type="text" id="str">
+        <input type="text" id="start_index">
+        <input type="text" id="length">
+    </div>
+    <div class="shadow" id="upper">
+        <button class="remove">삭제</button>
+        <input type="text" id="str">
+        <input type="text" id="start_index">
+        <input type="text" id="length">
+    </div>
+    <div class="shadow" id="lower">
+        <button class="remove">삭제</button>
+        <input type="text" id="str">
+        <input type="text" id="start_index">
+        <input type="text" id="length">
+    </div>
+
+    <script>
+        var select = document.getElementById('slct'),
+            addBtn = document.getElementById('add'),
+            list = document.getElementById('list'),
+            s_substr = document.querySelector('.shadow#substr'),
+            s_upper = document.querySelector('.shadow#upper'),
+            s_lower = document.querySelector('.shadow#lower');
+
+        addBtn.onclick = function () {
+            switch (select.value) {
+                case 'substr':
+                    var tmp = s_substr;
+                    tmp.classList = "";
+                    list.appendChild(tmp);
+                break;
+                case 'upper':
+
+                break;
+                case 'lower':
+
+                break;
+                case 'indexOf':
+
+                break;
+                case 'replace':
+
+                break;
+                case 'split':
+
+                break;
+
+            }
+        };
+    </script>
+</body>
+</html>
