@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .shadow {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <select name="" id="slct">    <!--셀렉트태그 - 이것들로 아이디slct-->
+        <option value="substr">substr</option>    <!-- //문자열 내에서 특정한 문자열의 index 값을 리턴한다 -->
+        <option value="upper">upper</option>    <!-- //문자열을 대문자로 변환해서 반환 -->
+        <option value="lower">lower</option>     	<!-- //문자열을 소문자로 변환해서 반환 -->
+        <option value="indexOf">indexOf</option>     	<!-- //문자열 내에서 특정한 문자열의 index 값을 리턴한다 -->
+        <option value="replace">replace</option>      <!-- //문자열을 다른 문자열로 치환한 결과를 리턴 -->
+        <option value="split">split</option>     <!-- //문자열을 인자로 주어진 문자열일 기준으로 쪼개서 배열에 담는다 -->
+    </select>
+    <button id="add">추가</button>
+	<!-- 이 추가 버튼을 누르면 각 매서드에 맞는 표들이 생성됨 -->
+    <table id="list">
+		<thead></thead>
+		<tbody></tbody> <!-- 테이블 태그는 자동으로 tbody가 생성되기 때문에 이렇게 적어줘야한다. -->
+	</table>
+	<!--list박스에 tmp들이 복사되어 쌓인다.
+	shadow란 클래스이름을 가진 div들은 css로 display:none이 되어있어서 안보이지만
+	아래 존재하고 있는 것이고 일시적인 tmp변수들이 각각의 shadow들을 복사하여 자식으로 담긴다.
+	거기에 classList=""을하면 부모인 shadow는 안보이지만 cloneNode된 tmp들은 보이게 된다.
+	-->
+	<!-- 위에 설명은 table이 아니라 div로 감싸고 있을 때의 설명으로 지금은 table에 shadow클래스를 주었고,
+	구조상으로는 그아래 바로 button과 input요소들이 오는 것이 아니라 table > tbody > tr > td > button/input/span이
+	온다. 사실 필요한 부분은 id substr에 해당하는 tr태그 부분만이지만 table 특성상 table tbody의 구조를 가져야 하기 때문에
+	이렇게 적어주었고 그리고 table과 tbody에는 클래스가 되는데 tr은 cell이라서 그런지 안먹히는 문제점도 이렇게 하여 해결되었다.
+	그리고 따로 함수에 className=""을 안붙여도 이미 id list는 클래스 이름이 없기 때문에 더 깔끔한 코딩이 된었다. -->
+
+	<table class="shadow">
+		<tbody>
+			<tr class="" id="substr">
+				<td>substr</td>
+		        <td><button class="remove">삭제</button></td>
+		        <td><input type="text" class = "inp1" placeholder = "아무 단어나 적어"></td>
+		        <td><input type="text" class = "inp2" placeholder = "몇번째부터 추출할까?"></td>
+		        <td><input type="text" class = "inp3" placeholder = "몇개의 문자열을?"></td>
+		        <td><span class="result"></span></td>
+		    </tr>
+			<tr class="" id="upper">
+				<td>upper</td>
+		        <td><button class="remove">삭제</button></td>
+		        <td><input type="text" class = "inp1" placeholder = "소문자로 아무 글자"></td>
+		        <td><span class="result"></span></td>
+		    </tr>
+		    <tr class="" id="lower">
+				<td>lower</td>
+		        <td><button class="remove">삭제</button></td>
+		        <td><input type="text" class = "inp1" placeholder = "대문자로 아무 글자"></td>
+				<td><span class="result"></span></td>
+		    </tr>
+			<tr class="" id="indexOf">
+				<td>indexOf</td>
+		        <td><button class="remove">삭제</button></td>
+		        <td><input type="text" class = "inp1" placeholder = "stringValue 기준 문자열"></td>
+		        <td><input type="text" class = "inp2" placeholder = "stringValue에서 탐색하고 싶은 문자열"></td>
+		        <td><input type="text" class = "inp3" placeholder = "(선택)몇번째부터?"></td>
+				<td><span class="result"></span></td>
+		    </tr>
+			<tr class="" id="replace">
+				<td>replace</td>
+		        <td><button class="remove">삭제</button></td>
+		        <td><input type="text" class = "inp1" placeholder = "아무 단어나 적어"></td>
+				<td><input type="text" class = "inp2" placeholder = "뻬고 싶은 부분"></td>
+		        <td><input type="text" class = "inp3" placeholder = "새롭게 넣은 글자 "></td>
+				<td><span class="result"></span></td>
+		    </tr>
+			<tr class="" id="split">
+				<td>split</td>
+		        <td><button class="remove">삭제</button></td>
+		        <td><input type="text" class = "inp1" placeholder = "html,css,javascript,jquery,apache,php" readonly value="html,css,javascript,jquery,apache,php"></td>
+		        <td><input type="text" class = "inp2" title = "문자열을 분리하는 기준 문자열, 사용하지 않으면 전체 문자열을 하나의 원소로 담고 있는 배열을 리턴한다" placeholder = "분리 기준 문자(추천: 콤마)"></td>
+		        <td><input type="text" class = "inp3" title = "limit(숫자)" placeholder = "리턴되는 배열의 숫자를 제한"></td>
+				<td><span class="result"></span></td>
+		    </tr>
+		</tbody>
+	</table>
+
+
+    <script>
+        var select = document.getElementById('slct'),
+            addBtn = document.getElementById('add'),
+            listTb = document.querySelector('#list>tbody'), //아이디 list의 직속 자식인 tbody를 선택하여 listTb에 담음
+            s_substr = document.querySelector('.shadow #substr'), // 클래스이름이 shadow table태그의 아래 아이디가 ~ 인 자식 tr들
+            s_upper = document.querySelector('.shadow #upper'),
+            s_lower = document.querySelector('.shadow #lower'),
+			s_inxOf = document.querySelector('.shadow #indexOf'),
+			s_replc = document.querySelector('.shadow #replace'),
+			s_split = document.querySelector('.shadow #split');
+
+        addBtn.onclick = function () { //addBtn(추가버튼)을 클릭하면 다음 함수가 실행된다.
+            switch (select.value) { // 인자에서 해당하는 case가 실행된다.
+                case 'substr': //select의 value가 substr이면 실행.
+                    var tmp = s_substr.cloneNode(true); // id substr인 tr의 모든 자식 요소를 복사함.
+                    listTb.appendChild(tmp); //tmp(즉 위에 s_substr = tr)를 listTb의 마지막 자식 요소로 붙임.
+                    var fbtn, inp1, inp2, inp3, rst; //빈 변수를 이름을 먼저 만들어줌.
+					for (var i = 0; i < tmp.children.length; i++) { //for반복구문. tr의 children 속성의 length수만큼 루프를 돌게한다.
+						var value = tmp.children[i].firstChild; // value라는 변수에 tr의 children속성(=모두 td)의 i번째의 첫번째자식요소(어차피 자식이 하나밖에 없어서)를 담게된다.는 것을 먼저 만들어놓음.
+						if(value.className == "remove") { //구문이 처음 돌때 i는 0이고 0의 td의 첫번째 자식은 없어서 넘어가고
+							fbtn = value;
+                        } //i++하고 i가 1이되면 td의 첫번째자식인 button의 클래스 이름이 remove가 된고 논리연산자 ==는 true가 되어 fbtn 변수에 value(=1번째 td의 첫번째 자식인 remove 버튼이 담김.)
+                        if(value.className == "inp1") { //위와 같은 과정을 통해 각자 true가 되는 값을 담는다.
+                            inp1 = value;
+                        }
+                        if(value.className == "inp2") {
+                            inp2 = value;
+                        }
+                        if(value.className == "inp3") {
+                            inp3 = value;
+                        }
+                        if(value.className == "result") {
+                            rst = value;
+                        }
+					}
+                    fbtn.addEventListener('click', function (){ //fbtn변수는 클릭이라는 이벤트가 일어나는 것에 대기하고 있다.
+                        listTb.removeChild(tmp); //fbtn에 클릭 이벤트가 일어나면 listTb(= list라는 아이디를 가진 tbody태그의 자식인 tmp를 제거하는 함수가 실행된다.)
+                    });
+                    tmp.addEventListener('change',  function (){ //tmp(=tr태그)에 change라는 이벤트가 일어나면 다음 함수를 실행하기를 대기중.
+                        rst.innerText = inp1.value.substr(inp2.value, inp3.value);//rst(span결과칸)라는 변수의 텍스트에 inp1의 벨류에 substr변수를 inp2와 inp3의 벨류를  이용하여 실행한 값을 나타낸다.
+                    });
+                break; //해당하는 case를 실행하면 이 함수를 탈출한다.
+                case 'upper':
+					var tmp = s_upper.cloneNode(true);
+					listTb.appendChild(tmp);
+					var fbtn, inp1, inp2, inp3, rst;
+					for (var i = 0; i < tmp.children.length; i++) {
+						var value = tmp.children[i].firstChild;
+						if(value.className == "remove") {
+							fbtn = value;
+						}
+						if(value.className == "inp1") {
+							inp1 = value;
+						}
+						if(value.className == "result") {
+							rst = value;
+						}
+					}
+					fbtn.addEventListener('click', function (){
+                        listTb.removeChild(tmp);
+					});
+					tmp.addEventListener('change', function (){
+						rst.innerText = inp1.value.toUpperCase();
+					});
+
+                break;
+                case 'lower':
+				var tmp = s_lower.cloneNode(true);
+					listTb.appendChild(tmp); //tmp를 list의 마지막 자식 요소로 붙임.
+					var fbtn, inp1, inp2, inp3, rst;
+					for (var i = 0; i < tmp.children.length; i++) {
+						var value = tmp.children[i].firstChild;
+						if(value.className == "remove") {
+							fbtn = value;
+						}
+						if(value.className == "inp1") {
+							inp1 = value;
+						}
+						if(value.className == "result") {
+							rst = value;
+						}
+					}
+					fbtn.addEventListener('click', function (){
+						listTb.removeChild(tmp);
+					});
+					tmp.addEventListener('change', function (){
+						rst.innerText = inp1.value.toLowerCase();
+					});
+                break;
+                case 'indexOf':
+					var tmp = s_inxOf.cloneNode(true);
+					listTb.appendChild(tmp);
+					var fbtn, inp1, inp2, inp3, rst;
+					for (var i = 0; i < tmp.children.length; i++) {
+						var value = tmp.children[i].firstChild;
+						if(value.className == "remove") {
+							fbtn = value;
+						}
+						if(value.className == "inp1") {
+							inp1 = value;
+						}
+						if(value.className == "inp2") {
+							inp2 = value;
+						}
+						if(value.className == "inp3") {
+							inp3 = value;
+						}
+						if(value.className == "result") {
+							rst = value;
+						}
+					}
+					fbtn.addEventListener('click', function (){
+						listTb.removeChild(tmp);
+					});
+					tmp.addEventListener('change', function (){
+						rst.innerText = inp1.value.indexOf(inp2.value, inp3.value);
+					});
+                break;
+                case 'replace':
+					var tmp = s_replc.cloneNode(true);
+					listTb.appendChild(tmp);
+					var fbtn, inp1, inp2, inp3, rst;
+					for (var i = 0; i < tmp.children.length; i++) {
+						var value = tmp.children[i].firstChild;
+						if(value.className == "remove") {
+							fbtn = value;
+						}
+						if(value.className == "inp1") {
+							inp1 = value;
+						}
+						if(value.className == "inp2") {
+							inp2 = value;
+						}
+						if(value.className == "inp3") {
+							inp3 = value;
+						}
+						if(value.className == "result") {
+							rst = value;
+						}
+					}
+					fbtn.addEventListener('click', function (){
+						listTb.removeChild(tmp);
+					});
+					tmp.addEventListener('change', function (){
+						rst.innerText = inp1.value.replace(inp2.value, inp3.value);
+					});
+
+                break;
+                case 'split':
+					var tmp = s_split.cloneNode(true);
+					listTb.appendChild(tmp);
+					var fbtn, inp1, inp2, inp3, rst;
+					for (var i = 0; i < tmp.children.length; i++) {
+						var value = tmp.children[i].firstChild;
+						if(value.className == "remove") {
+							fbtn = value;
+						}
+						if(value.className == "inp1") {
+							inp1 = value;
+						}
+						if(value.className == "inp2") {
+							inp2 = value;
+						}
+						if(value.className == "inp3") {
+							inp3 = value;
+						}
+						if(value.className == "result") {
+							rst = value;
+						}
+					}
+					fbtn.addEventListener('click', function (){
+						listTb.removeChild(tmp);
+					});
+					tmp.addEventListener('change', function (){
+						rst.innerText = inp1.value.split(inp2.value, inp3.value);
+					});
+
+                break;
+
+            }
+        };
+    </script>
+</body>
+</html>
